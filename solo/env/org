@@ -1,0 +1,4 @@
+export CORE_PEER_LOCALMSPID="Org1MSP"
+export CORE_PEER_ADDRESS=localhost:7051
+export CORE_PEER_MSPCONFIGPATH=$(git rev-parse --show-toplevel)/solo/crypto-config/peerOrganizations/org1.com/users/Admin@org1.com/msp
+export FABRIC_CFG_PATH=$(git rev-parse --show-toplevel)/config

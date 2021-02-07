@@ -1,0 +1,49 @@
+version: '2.1'
+networks: 
+  solo:
+volumes: 
+  orderer_volume:
+  peer_volume:
+
+services: 
+  Orderer:
+    container_name: orderer
+    image: hyperledger/fabric-orderer:2.2
+    networks: 
+      - solo
+    ports: 
+      - 7050:7050
+    volumes: 
+      - orderer_volume:/var/hyperledger/production/orderer
+      - ./artifacts:/artifacts
+      - ./crypto-config/ordererOrganizations/orderer.com/orderers/orderer:/orderer
+    environment:
+      - FABRIC_LOGGING_SPEC=INFO
+      - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
+      - ORDERER_GENERAL_LOCALMSPID=OrdererMSP
+      - ORDERER_GENERAL_LOCALMSPDIR=/orderer/msp
+      - ORDERER_GENERAL_GENESISMETHOD=file
+      - ORDERER_GENERAL_BOOTSTRAPFILE=/artifacts/genesis.block
+  devpeer:
+    container_name: devpeer
+    image: hyperledger/fabric-peer:2.2
+    networks: 
+        - solo
+    ports: 
+      - 7051:7051
+    volumes: 
+      - peer_volume:/var/hyperledger/production
+      - /var/run:/host/var/run
+      - ./crypto-config/peerOrganizations/org1.com/peers/devpeer:/peer
+    environment: 
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=solo_solo
+      - FABRIC_LOGGING_SPEC=INFO
+      - CORE_PEER_ID=devpeer
+      - CORE_PEER_ADDRESS=devpeer:7051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:7051
+      - CORE_PEER_CHAINCODEADDRESS=devpeer:7052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:7052
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=devpeer:7051
+      - CORE_PEER_LOCALMSPID=Org1MSP
+      - CORE_PEER_MSPCONFIGPATH=/peer/msp
