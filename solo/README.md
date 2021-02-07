@@ -4,11 +4,11 @@ Network with solo orderer and a devpeer
 
 ### Start Network
 ```
-./network start
+./network.sh start
 ```
 ### clean up
 ```
-./network clean
+./network.sh clean
 ```
 
 ### Channel operation
@@ -18,9 +18,9 @@ source env/org
 ```
 #### Create Channel
 ```
-./channel create
+./channel.sh create
 ```
 #### Join Channel
 ```
-./channel join
+./channel.sh join
 ```
