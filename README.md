@@ -15,6 +15,6 @@ This is a playground for E-Voting system on blockchain
 
 ## Head-on
 
-- [ ] Solo playground
+- [X] [Solo playground](solo/README.md)
 - [ ] Identifier Chaincode (no-crypto)
 - [ ] Manual Election Chaincode (no-crypto)
