@@ -40,6 +40,7 @@ case  $1 in
     "clean")
         docker rm -f orderer devpeer cli
         docker volume rm solo_peer_volume solo_orderer_volume
+        docker rm -f $(docker ps -f "name=dev-*" -aq)
     ;;
     *)
         echo "nothing to call"
