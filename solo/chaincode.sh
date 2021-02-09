@@ -1,6 +1,6 @@
 #/bin/bash
 # TMP=/tmp
-TMP=./
+TMP=/tmp
 ORDERER=localhost:7050
 CHANNEL_NAME=devchannel
 
@@ -41,6 +41,7 @@ function approveForMyOrg(){
 function commit(){
     NAME=$1
     VERSION=$2
+    # echo $NAME
     peer lifecycle chaincode commit -C $CHANNEL_NAME -n $NAME -v $VERSION --sequence $VERSION -o $ORDERER
 }
 
@@ -52,8 +53,15 @@ case $1 in
         pkg $NAME 1
         install $NAME 1
         approveForMyOrg $NAME 1
+        commit $NAME 1
     ;;
     "update")
+        NAME=$2
+        VERSION=$3
+        pkg $NAME $VERSION
+        install $NAME $VERSION
+        approveForMyOrg $NAME $VERSION
+        commit $NAME $VERSION
     ;;
     *)
         echo "Chaincode bash script has only"
@@ -65,8 +73,7 @@ case $1 in
         echo "install called only once"
         echo "===================================================="
         echo "===================================================="
-        echo "update <chaincodeName>"
+        echo "update <chaincodeName> <version>"
         echo "update called once install is called"
-        echo "update will increase sequence and version of chaincode by 1"
     ;;
 esac

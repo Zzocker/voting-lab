@@ -24,3 +24,20 @@ source env/org
 ```
 ./channel.sh join
 ```
+
+### Chaincode operation
+`./chaincode.sh`
+#### Install
+Install need to called only once for a chaincode
+```
+./chaincode.sh <pkg_name>
+```
+
+pkg_name : is relative to *chiancode* directory of repo root
+
+#### Update
+```
+./chaincode.sh <pkg_name> <version>
+```
+pkg_name : is relative to *chiancode* directory of repo root
+
