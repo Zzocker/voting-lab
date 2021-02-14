@@ -38,7 +38,7 @@ case  $1 in
         docker-compose up -d
     ;;
     "clean")
-        docker rm -f orderer devpeer cli
+        docker rm -f orderer devpeer db
         docker volume rm solo_peer_volume solo_orderer_volume
         docker rm -f $(docker ps -f "name=dev-*" -aq)
     ;;

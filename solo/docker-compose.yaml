@@ -47,3 +47,18 @@ services:
       - CORE_PEER_GOSSIP_EXTERNALENDPOINT=devpeer:7051
       - CORE_PEER_LOCALMSPID=Org1MSP
       - CORE_PEER_MSPCONFIGPATH=/peer/msp
+      - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=db:5984
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=dev
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=pass
+  db:
+    container_name: db
+    image: couchdb
+    networks: 
+      - solo
+    ports: 
+      - 5984:5984
+    environment: 
+      - COUCHDB_USER=dev
+      - COUCHDB_PASSWORD=pass
+    
